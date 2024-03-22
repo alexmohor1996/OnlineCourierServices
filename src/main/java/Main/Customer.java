@@ -76,12 +76,45 @@ public class Customer {
 
     public void completeForm(){
         Scanner userInput = new Scanner(System.in);
+        boolean foundCharacter = false;
+
+        char[] specialCharacters = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
 
         System.out.println("Please enter your first name");
         String firstName = userInput.nextLine();
+        while (firstName.length() > 8){
+            for (int i=0; i<firstName.length(); i++){
+                for (char characters : specialCharacters){
+                    if (firstName.charAt(i) == characters){
+                        foundCharacter = true;
+                       break;
+                    }
+                }
+            }
+            if (foundCharacter){
+                System.out.println("[ERROR]: You cannot have special characters in the name");
+            }
+
+            System.out.println("[ERROR]: The maximum characters for the name is 8");
+
+            System.out.println("Please enter your first name");
+            firstName = userInput.nextLine();
+
+        }
+
+
 
         System.out.println("Please enter your last name");
         String lastName = userInput.nextLine();
+        while (lastName.length() > 8){
+            System.out.println("[ERROR]: The maximum characters for the name is 8");
+        }
+
+        for (int i=0; i<specialCharacters.length; i++){
+            if (lastName.charAt(i) == specialCharacters[i]){
+                System.out.println("[ERROR]: You cannot use special characters in your name");
+            }
+        }
 
         System.out.println("Please enter your date of birth");
         String dateOfBirth = userInput.nextLine();
