@@ -73,96 +73,72 @@ public class Customer {
     public void placeOrder(){
         System.out.println("Thank you for your order" + getFirstName() + " " + getLastName());
     }
+    boolean firstNameChar = false;
+    boolean secondNameChar = false;
+
+    char[] specialCharacters = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
+
+    public boolean specialCharacters(String str, char[] specialChars){
+        for (char c : str.toCharArray()){
+            for (char special : specialCharacters){
+                if (c == special){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public void completeForm(){
         Scanner userInput = new Scanner(System.in);
-        boolean firstNameChar = false;
-        boolean secondNameChar = false;
 
-        char[] specialCharacters = {'!', '@', '#', '$', '%', '^', '&', '*', '(', ')'};
 
-        System.out.println("Please enter your first name");
-        String firstName = userInput.nextLine();
 
         // Check the following things:
         // 1. The name has more than 8 digits (works)
         // 2. The name contains the above special characters (not working)
         // 3. The name containts both special characters and more than 8 digits (works)
 
+        while (true){
+            System.out.println("Please enter your first name");
+            String firstName = userInput.nextLine();
+            boolean hasSpecial = specialCharacters(firstName, specialCharacters);
 
-        for (int i=0; i<firstName.length(); i++){
-            for (char characters : specialCharacters){
-                if (firstName.length() > 8){
-                    if (firstName.charAt(i) == characters){
-                        System.out.println("You cannot have special characters and more than 8 digits in the name");
-                        System.out.println("Please enter your first name");
-                        userInput.nextLine();
-                    }
-                    else{
-                        System.out.println("You cannot have more than 8 digits in the name");
-                        System.out.println("Please enter your first name");
-                        userInput.nextLine();
-                    }
-                }
-                else {
-                    if (firstName.charAt(i) == characters){
-                        System.out.println("You cannot have special characters in the name");
-                        System.out.println("Please enter your first name");
-                        userInput.nextLine();
-                    }
-                }
+
+            if (firstName.length() > 8 && hasSpecial){
+                System.out.println("You can have more than 8 characters and special characters in the first name");
+            }
+            else if (firstName.length() > 8){
+                System.out.println("You can't have more than 8 characters in the first name");
+            }
+            else if (hasSpecial){
+                System.out.println("You can't have special characters in the first name");
+            }
+            else {
+                break;
             }
         }
-//        while (firstName.length() > 8) {
-//            for (int i = 0; i < firstName.length(); i++) {
-//                for (char characters : specialCharacters) {
-//                    if (firstName.charAt(i) == characters) {
-//                    //    firstNameChar = true;
-//                     //   if (firstNameChar){
-//                            if (firstName.length() > 8){
-//                                System.out.println("[ERROR]: You cannot have special characters in the name");
-//                                System.out.println("[ERROR]: The maximum characters for the name is 8");
-//                                System.out.println("Please enter your first name");
-//                                firstName = userInput.nextLine();
-//                            }
-//                            else if (firstName.length() < 8) {
-//                                System.out.println("[ERROR]: You cannot have special characters in the name");
-//                                System.out.println("Please enter your first name");
-//                                firstName = userInput.nextLine();
-//                            }
-//                     //   }
-//                    }
-//                }
-//            }
 
-
-          //  System.out.println("[ERROR]: The maximum characters for the name is 8");
-
-         //   System.out.println("Please enter your first name");
-           // firstName = userInput.nextLine();
-     //   }
-
-        System.out.println("Please enter your last name");
-        String lastName = userInput.nextLine();
-        while (lastName.length() > 8){
-            for (int i=0; i<lastName.length(); i++){
-                for (char characters : specialCharacters){
-                    if (lastName.charAt(i) == characters){
-                        secondNameChar = true;
-                        break;
-                    }
-                }
-            }
-            if (secondNameChar){
-                System.out.println("[ERROR]: You cannot have special characters in the name");
-            }
-
-            System.out.println("[ERROR]: The maximum characters for the name is 8");
-
+        while (true){
             System.out.println("Please enter your last name");
-            lastName = userInput.nextLine();
+            String lastName = userInput.nextLine();
+            boolean hasSpecial = specialCharacters(lastName, specialCharacters);
 
+            if (lastName.length() > 8 && hasSpecial){
+                System.out.println("You can have more than 8 characters and special characters in the last name");
+            }
+            else if (lastName.length() > 8){
+                System.out.println("You can't have more than 8 characters in the last name");
+            }
+            else if (hasSpecial){
+                System.out.println("You can't have special characters in the last name");
+            }
+            else {
+                break;
+            }
         }
+       // System.out.println("Full name successfully entered!");
 
         System.out.println("Please enter your date of birth");
         String dateOfBirth = userInput.nextLine();
@@ -193,5 +169,6 @@ public class Customer {
     public void getUserInformation(){
         System.out.println("User Information: \n" + userInformation);
     }
+
 }
 
